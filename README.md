@@ -2,19 +2,47 @@
 <img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
 </div>
 
-# Run and deploy your AI Studio app
+# Temple‑Prep – 7‑Day Guide
 
-This contains everything you need to run your app locally.
+This repository contains a Vite‑powered web app that you can run locally or deploy with Docker.
 
-View your app in AI Studio: https://ai.studio/apps/d55084c1-aa0d-4c8a-9337-483225a7f47a
+## Run locally
 
-## Run Locally
+**Prerequisites**
+- Node 20 (or later)
+- npm (bundled with Node)
 
-**Prerequisites:**  Node.js
+1. Install dependencies
 
+```bash
+npm ci
+```
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+2. Build the production assets
+
+```bash
+npm run build
+```
+
+3. Start the preview server (serves the built files)
+
+```bash
+npm run preview
+```
+
+The app will be available at `http://localhost:3000` (or the port you specify with `--port`).
+
+## Deploy with Docker
+
+A multistage Dockerfile builds the assets and serves them with nginx. After building the image, run:
+
+```bash
+docker build -t temple-prep .
+docker run -d -p 8009:80 --name temple-prep-container temple-prep:latest
+```
+
+You can then open `http://localhost:8009` in your browser.
+
+---
+
+*This repo is public; no secret keys (e.g., Gemini API keys) are required to run or deploy the application.*
